@@ -9,20 +9,20 @@ const messageSchema = new mongoose.Schema({
   // },
   messageId: {
     type: String,
-    required: false,
+    required: true,
   },
   platform: {
     type: String,
-    required: false,
+    required: true,
   },
   timestamp: {
     type: Date,
-    required: false,
+    required: true,
   },
   type: {
     type: String,
     enum: ["txt", "media", "location", "contact"],
-    required: false,
+    required: true,
   },
   messageObj: {
     type: Object,

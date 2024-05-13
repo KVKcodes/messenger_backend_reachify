@@ -3,21 +3,17 @@ import mongoose from "mongoose"; // Import Mongoose
 // import { readdirSync } from "fs";
 import cors from 'cors';
 import { config } from "dotenv";
-import Message from "./models/message.js";
+import Message from './models/message.js';
+import bodyParser from 'body-parser';
 
 config();
 
 const app = express();
 app.use(cors());
-
-// middleware
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 //autoload Routes
@@ -29,28 +25,30 @@ app.post('/api/hello', (req, res) => {
 
 app.post("/api/messages", async (req, res) => {
   try {
+    console.log(req.body);
     const { messageId, platform, timestamp, type, messageObj, messageText, error } = req.body;
     console.log("got a request");
 
     // Create a new message using the Message schema
-    const newMessage = new Message({
-      messageId,
-      platform,
-      timestamp,
-      type,
-      messageObj,
-      messageText,
-      error
+    const newMessage = await Message.create({
+      "messageId": messageId,
+      "platform": platform,
+      "timestamp": timestamp,
+      "type": type,
+      "messageObj": messageObj,
+      "messageText": messageText,
+      "error": error
     });
 
-    // Save the message to MongoDB
-    await newMessage.save();
+    console.log(newMessage);
+
 
     res.status(201).json({ message: "Message saved successfully" });
   } catch (error) {
     console.error("Error saving message:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
+
 });
 
 app.use((err, req, res, next) => {
