@@ -3,6 +3,7 @@ import mongoose from "mongoose"; // Import Mongoose
 // import { readdirSync } from "fs";
 import cors from 'cors';
 import { config } from "dotenv";
+import Message from "./models/message.js";
 
 config();
 
@@ -28,7 +29,8 @@ app.post('/api/hello', (req, res) => {
 
 app.post("/api/messages", async (req, res) => {
   try {
-    const { messageId, platform, timestamp, type, messageObj, error } = req.body;
+    const { messageId, platform, timestamp, type, messageObj, messageText, error } = req.body;
+    console.log("got a request");
 
     // Create a new message using the Message schema
     const newMessage = new Message({
@@ -37,6 +39,7 @@ app.post("/api/messages", async (req, res) => {
       timestamp,
       type,
       messageObj,
+      messageText,
       error
     });
 

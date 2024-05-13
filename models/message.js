@@ -9,24 +9,28 @@ const messageSchema = new mongoose.Schema({
   // },
   messageId: {
     type: String,
-    required: true,
+    required: false,
   },
   platform: {
     type: String,
-    required: true,
+    required: false,
   },
   timestamp: {
     type: Date,
-    required: true,
+    required: false,
   },
   type: {
     type: String,
     enum: ["txt", "media", "location", "contact"],
-    required: true,
+    required: false,
   },
   messageObj: {
     type: Object,
     default: {},
+  },
+  messageText: {
+    type: String,
+    default: "",
   },
   // files: [
   //   {
@@ -52,7 +56,7 @@ const messageSchema = new mongoose.Schema({
   senderType: {
     type: String,
     enum: ["client", "bot", "me"],
-    required: true,
+    required: false,
   },
   // metadata: [
   //   {
