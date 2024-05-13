@@ -26,7 +26,7 @@ app.post('/api/hello', (req, res) => {
 app.post("/api/messages", async (req, res) => {
   try {
     console.log(req.body);
-    const { messageId, platform, timestamp, type, messageObj, messageText, error } = req.body;
+    const { messageId, platform, timestamp, type, messageObj, text, error } = req.body;
     console.log("got a request");
 
     // Create a new message using the Message schema
@@ -36,7 +36,7 @@ app.post("/api/messages", async (req, res) => {
       "timestamp": timestamp,
       "type": type,
       "messageObj": messageObj,
-      "messageText": messageText,
+      "messageText": text,
       "error": error
     });
 
