@@ -2,7 +2,9 @@ import express from "express";
 import mongoose from "mongoose"; // Import Mongoose
 // import { readdirSync } from "fs";
 import cors from 'cors';
-require("dotenv").config();
+import { config } from "dotenv";
+
+config();
 
 const app = express();
 app.use(cors());

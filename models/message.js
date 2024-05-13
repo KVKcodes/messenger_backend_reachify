@@ -49,11 +49,11 @@ const messageSchema = new mongoose.Schema({
   // replyFrom: {
   //   type: String,
   // },
-  // senderType: {
-  //   type: String,
-  //   enum: ["client", "bot", "me"],
-  //   required: true,
-  // },
+  senderType: {
+    type: String,
+    enum: ["client", "bot", "me"],
+    required: true,
+  },
   // metadata: [
   //   {
   //     key: {
